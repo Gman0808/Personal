@@ -13,8 +13,8 @@ private Vector3 prevMove;
     float timer;
     SpriteRenderer rend;
     public bool control;
-    public bool moveing;
-  
+    public Animator animator;
+
 
     public bool faceRight;
     // Use this for initialization
@@ -26,7 +26,7 @@ private Vector3 prevMove;
         timer = 0;
         DontDestroyOnLoad(this);
         control = true;
-        moveing = false;
+   
         
 
     }
@@ -48,13 +48,7 @@ private Vector3 prevMove;
             faceRight =true;
         }
 
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            moveing = true;
-        }
-        else
-            moveing = false;
-
+      
 
         if (controller.isGrounded)
         {
@@ -89,7 +83,18 @@ private Vector3 prevMove;
 
         }
 
+
+        //animation checks
+        animator.SetFloat("Speed", Mathf.Abs(directionMove.x) + Mathf.Abs(directionMove.z));
+        animator.SetInteger("Jump", floatJump);
+        animator.SetBool("Grounded", controller.isGrounded);
+        animator.SetFloat("Fall", directionMove.y);
+
         controller.Move(directionMove * Time.deltaTime);
         prevMove = directionMove;
+
+
+    
+
     }
 }
