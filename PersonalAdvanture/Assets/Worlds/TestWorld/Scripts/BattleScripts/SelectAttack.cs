@@ -99,5 +99,12 @@ public class SelectAttack : MonoBehaviour {
     public void selectOption()
     {
 
+        //recives info on what attacks are present
+
+        //displays specfic chocies
+
+        //gives info based on what was chosen
+
+
     }
 }

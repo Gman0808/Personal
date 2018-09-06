@@ -22,7 +22,9 @@ public class punchAttack : MonoBehaviour {
     GameObject MiniGame;
   public GameObject PunchDial;
   public GameObject[] PunchNodes;
-    Vector3 dialStartPos;
+    public GameObject DialEndPoint;
+    public GameObject DialStartPoint;
+ 
     public Sprite failedNode;
     public Sprite passedNode;
     public Sprite activeNode;
@@ -38,17 +40,20 @@ public class punchAttack : MonoBehaviour {
         bScript = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManager>();
         controller = moveScript.controller;
         attackStage = 1;
-        MiniGame = GameObject.FindGameObjectWithTag("PunchMiniGame");
+        MiniGame = GameObject.FindGameObjectWithTag("PunchBackground");
         PunchDial = GameObject.FindGameObjectWithTag("PunchDial");
         PunchNodes = GameObject.FindGameObjectsWithTag("PunchNodes");
+        DialEndPoint = GameObject.FindGameObjectWithTag("DialEndPoint");
+        DialStartPoint = GameObject.FindGameObjectWithTag("DialStartPoint");
+
         MiniGame.SetActive(false);
-        dialStartPos = PunchDial.transform.position;
+    
 
         positionSpeed = 3;
 
         camScript = mainCamera.GetComponent<battleCamera>();
-        setUpNodes();
 
+        setUpNodes();
         animateScript = player.GetComponent<battleAnimate>();
     }
 	
@@ -63,6 +68,7 @@ public class punchAttack : MonoBehaviour {
     {
         if (attackStage == 1)
         {
+            setUpNodes();
             animateScript.select = 0;
             findPosition();
             followPlayer();
@@ -76,7 +82,7 @@ public class punchAttack : MonoBehaviour {
             animateScript.select = 1;
 
             followPlayer2();
-           miniGame();
+            miniGame();
         }
         if (attackStage == 3)
         {
@@ -94,7 +100,7 @@ public class punchAttack : MonoBehaviour {
         {
             animateScript.select = 3;
             followPlayer2();
-            setUpNodes();
+         
             basicPunch();
         }
        
@@ -146,11 +152,19 @@ public class punchAttack : MonoBehaviour {
     //Mini game method
     public void setUpNodes()
     {
-        float[] setUp1 = { 710.2f, 783.5f, 633.2f};
-       float[] setUp2 = { 677.5f, 820f, 582.1f };
-        float[] setUp3 = { 688.8f, 858f, 617.7f};
+     
 
-        int rgen = Random.Range(0, 3);
+        float node1 = Random.Range(MiniGame.transform.position.x / 1.2f, MiniGame.transform.position.x / 1.05f);
+        float node2 = Random.Range(MiniGame.transform.position.x, MiniGame.transform.position.x * 1.11f);
+        float node3 = Random.Range(MiniGame.transform.position.x * 1.16f, MiniGame.transform.position.x * 1.2f);
+        
+     
+
+        float[] setUp1 = { node1, node2, node3 };
+
+
+        //    int rgen = Random.Range(0, 3);
+        int rgen = 0;
         if (rgen == 0)
         {
             for (int i = 0; i < PunchNodes.Length; i++)
@@ -158,25 +172,12 @@ public class punchAttack : MonoBehaviour {
                 PunchNodes[i].transform.position = new Vector3(setUp1[i], PunchNodes[i].transform.position.y, PunchNodes[i].transform.position.z);
             }
         }
-        else if(rgen == 1)
-        {
-            for (int i = 0; i < PunchNodes.Length; i++)
-            {
-                PunchNodes[i].transform.position = new Vector3(setUp2[i], PunchNodes[i].transform.position.y, PunchNodes[i].transform.position.z);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < PunchNodes.Length; i++)
-            {
-                PunchNodes[i].transform.position = new Vector3(setUp3[i], PunchNodes[i].transform.position.y, PunchNodes[i].transform.position.z);
-            }
-        }
+     
     }
 
     public void miniGame()
     {
- 
+        //MAY WANT TO CHANGE SO ITS CONSISTANT NO MATTER WHAT REGARDLESS OF SCREEN RESOULTION
         bool end = false;
         MiniGame.SetActive(true);
         bScript.freezeEnnemies = true;
@@ -213,13 +214,11 @@ public class punchAttack : MonoBehaviour {
                     }
                 }
 
-
-
             }
 
-            if (PunchDial.transform.position.x < 850.7)
+            if (PunchDial.transform.position.x < DialEndPoint.transform.position.x)
             {
-                DialMove.x += (170 * Time.deltaTime);
+                DialMove.x += ((DialEndPoint.transform.position.x - DialStartPoint.transform.position.x)/2 * Time.deltaTime);
                 PunchDial.transform.position = DialMove;
             }
             else
@@ -259,7 +258,7 @@ public class punchAttack : MonoBehaviour {
     public void basicPunch()
     {
         MiniGame.SetActive(false);
-        PunchDial.transform.position = dialStartPos;
+        PunchDial.transform.position = DialStartPoint.transform.position;
         Vector3 directionMove = new Vector3(accel, 0, 0);
         float constantY = player.transform.position.y;
         if (accel > 0)

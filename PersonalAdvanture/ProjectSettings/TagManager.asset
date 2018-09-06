@@ -10,9 +10,11 @@ TagManager:
   - Obsticals
   - Enemies
   - BattleManager
-  - PunchMiniGame
   - PunchDial
   - PunchNodes
+  - PunchBackground
+  - DialEndPoint
+  - DialStartPoint
   layers:
   - Default
   - TransparentFX
