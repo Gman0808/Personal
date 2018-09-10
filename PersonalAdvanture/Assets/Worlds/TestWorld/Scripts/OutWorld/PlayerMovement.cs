@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
     public float speed;
@@ -14,7 +15,13 @@ private Vector3 prevMove;
     SpriteRenderer rend;
     public bool control;
     public Animator animator;
+    
 
+
+    //Ui stuff
+    public GameObject MenuCanvas;
+    public bool pause;
+    int pauseInt;
 
     public bool faceRight;
     // Use this for initialization
@@ -26,8 +33,10 @@ private Vector3 prevMove;
         timer = 0;
         DontDestroyOnLoad(this);
         control = true;
-   
-        
+        pause = false;
+       MenuCanvas = GameObject.FindGameObjectWithTag("MenuUi");
+        MenuCanvas.SetActive(false);
+    
 
     }
 	
@@ -84,17 +93,44 @@ private Vector3 prevMove;
         }
 
 
+     
+
         //animation checks
         animator.SetFloat("Speed", Mathf.Abs(directionMove.x) + Mathf.Abs(directionMove.z));
         animator.SetInteger("Jump", floatJump);
         animator.SetBool("Grounded", controller.isGrounded);
         animator.SetFloat("Fall", directionMove.y);
 
-        controller.Move(directionMove * Time.deltaTime);
-        prevMove = directionMove;
+       
+
+        //menu Ui 
+        if (Input.GetButtonDown("Pause") && !pause )
+        {
+            pause = true;
+   
+        }
+        else if(Input.GetButtonDown("Pause")  && pause)
+        {
+           pause = false;
+
+        }
+
+  
+     
+        if (!pause)
+        {
+            controller.Move(directionMove * Time.deltaTime);
+            prevMove = directionMove;
+            MenuCanvas.SetActive(false);
+        }
+        else
+        {
+            MenuCanvas.SetActive(true);
+        }
 
 
     
 
     }
+ 
 }

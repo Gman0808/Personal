@@ -15,6 +15,7 @@ TagManager:
   - PunchBackground
   - DialEndPoint
   - DialStartPoint
+  - MenuUi
   layers:
   - Default
   - TransparentFX

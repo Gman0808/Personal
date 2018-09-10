@@ -236,7 +236,7 @@ public class EnnemieMovement : MonoBehaviour {
 
         if (!pScript.controller.isGrounded)
         {
-            Debug.Log("bloop");
+
             return true;
         }
 
