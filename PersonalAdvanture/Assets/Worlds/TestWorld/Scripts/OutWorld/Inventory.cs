@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
+
     public List<Item> items = new List<Item>();
 
     public static Inventory instance;
@@ -26,6 +27,14 @@ public class Inventory : MonoBehaviour {
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
+    public void Start()
+    {
+        //may change, just to make GameInfo is always around
+        DontDestroyOnLoad(this);
+
+    
+    }
+
     public bool Add(Item item)
     {
         if (items.Count > limit)
@@ -46,6 +55,16 @@ public class Inventory : MonoBehaviour {
     {
      
         items.Remove(item);
+
+        if (onItemChangedCallback != null)
+        {
+            onItemChangedCallback.Invoke();
+        }
+
+    }
+
+    public void UpdateUI()
+    {
 
         if (onItemChangedCallback != null)
         {

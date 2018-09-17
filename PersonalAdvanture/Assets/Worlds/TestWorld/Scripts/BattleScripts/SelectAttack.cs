@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectAttack : MonoBehaviour {
+    public static SelectAttack instance;
+
     BattleManager bScript;
     RotateBlocks rScript;
     float attackMode;//1 slingshot, 2 Item, 3 Runaway, 4 Punch
@@ -12,6 +14,20 @@ public class SelectAttack : MonoBehaviour {
     public float delay;
     public GameObject[] actionPanels; // 0 - runaway, 1- item, 2- slingshot, 3- punch
     public int chosenAction;
+
+    #region SingleTon
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("Warning multiple inventorys found");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
 
     // Use this for initialization
     void Start () {
@@ -99,12 +115,15 @@ public class SelectAttack : MonoBehaviour {
     public void selectOption()
     {
 
-        //recives info on what attacks are present
-
-        //displays specfic chocies
-
-        //gives info based on what was chosen
+        delayTimer = 0;
+        selectMode = 3;
+        bScript.stages = 3; //now proforming action
+        disablePannels();
+        bScript.delayTimer = 0;
+        //subject to change once variations in options are added (diffrent punch choices or items)
+        bScript.attackChoice = chosenAction;
 
 
     }
+
 }

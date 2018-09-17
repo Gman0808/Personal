@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
+
+
+    public static BattleManager instance;
+
     public GameObject player;
     public GameObject bPlayer;
     public int stages;   //1- choose block, 2- select action from panel, 3- Proform action
@@ -21,6 +25,7 @@ public class BattleManager : MonoBehaviour {
     //attack scripts
     punchAttack punchScript;
     slingAttack slingScript;
+   public BaseItem itemScript;
 
     // Use this for initialization
 
@@ -32,7 +37,16 @@ public class BattleManager : MonoBehaviour {
             if (player.activeSelf)
                 player.SetActive(false);
         }
-        
+
+        #region SingleTon
+        if (instance != null)
+        {
+            Debug.Log("Warning multiple battleMangers found");
+            return;
+        }
+        instance = this;
+        #endregion
+
     }
     void Start () {
         bPlayer = GameObject.Find("BattlePlayer");
@@ -44,12 +58,14 @@ public class BattleManager : MonoBehaviour {
         enemies = GameObject.FindGameObjectsWithTag("Enemies");
         obsticals = GameObject.FindGameObjectsWithTag("Obsticals");
         freezeEnnemies = false;
+        Inventory.instance.UpdateUI();
     }
 	
 	// Update is called once per frame
 	void Update () {
         if(stages == 1)
         {
+       
             camScript.cameraMoveTo(new Vector3(-6.2f, 1.64f, -16.55f));
         }
         if(stages == 2)
@@ -68,6 +84,10 @@ public class BattleManager : MonoBehaviour {
             if (attackChoice == 1 && delayTimer >= 20 * Time.deltaTime)
             {
                 stages += slingScript.basicAttack();
+            }
+            if (attackChoice == 2 && delayTimer >= 20 * Time.deltaTime)
+            {
+                stages += itemScript.PreformItem();
             }
             if (stages == 4)
                 delayTimer = 0;
