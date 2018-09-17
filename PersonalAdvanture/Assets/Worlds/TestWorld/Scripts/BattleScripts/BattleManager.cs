@@ -7,8 +7,11 @@ public class BattleManager : MonoBehaviour {
 
     public static BattleManager instance;
 
-    public GameObject player;
-    public GameObject bPlayer;
+    GameObject player;
+    GameObject bPlayer;
+   public CharacterController controller;
+    battlePlayerMovement moveScript;
+
     public int stages;   //1- choose block, 2- select action from panel, 3- Proform action
     public int attackChoice; // 1- slingshot, 2- item, 3- runaway, 4- punch
     public bool freezeEnnemies; // freezes ennemies when player attacks
@@ -16,6 +19,8 @@ public class BattleManager : MonoBehaviour {
     battleCamera camScript;
     public float delayTimer;
 
+    //obstical
+   public  GameObject transBound;
 
 
     //enemies and obsticals
@@ -50,6 +55,7 @@ public class BattleManager : MonoBehaviour {
     }
     void Start () {
         bPlayer = GameObject.Find("BattlePlayer");
+        moveScript = bPlayer.GetComponent<battlePlayerMovement>();
         camScript = mainCamera.GetComponent<battleCamera>();
         stages = 1;
         delayTimer = 10;
@@ -59,11 +65,14 @@ public class BattleManager : MonoBehaviour {
         obsticals = GameObject.FindGameObjectsWithTag("Obsticals");
         freezeEnnemies = false;
         Inventory.instance.UpdateUI();
+     
+   
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(stages == 1)
+
+        if (stages == 1)
         {
        
             camScript.cameraMoveTo(new Vector3(-6.2f, 1.64f, -16.55f));
@@ -90,7 +99,12 @@ public class BattleManager : MonoBehaviour {
                 stages += itemScript.PreformItem();
             }
             if (stages == 4)
+            {
                 delayTimer = 0;
+
+                transBound.transform.position = new Vector3(-9.41f, 10.47f, -10.55f);
+            }
+               
 
         }
         if(stages == 4 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
@@ -101,13 +115,30 @@ public class BattleManager : MonoBehaviour {
                 {
                     if(en.GetComponent<EnInfo>().health < 1)
                     {
-                        en.GetComponent<EnInfo>().targetDead();
+                        Destroy(en); 
                     }
                 }
             }
-
+            stages = 5;
+            delayTimer = 0;
         }
-	}
+        if (stages == 5 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
+        {
+            controller.Move(new Vector3( -1f*Time.deltaTime, 0, 0));
+            CameraControl.instance.followPlayer();
+            if (bPlayer.transform.position.x <= -10f)
+            {
+                stages = 6;
+                transBound.transform.position = new Vector3(-9.41f, 0.47f, -10.55f);
+                delayTimer = 0;
+              
+            }
+        }
+        if (stages == 6 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
+        {
+            moveScript.freeMovement();
+        }
+    }
 
    
 }

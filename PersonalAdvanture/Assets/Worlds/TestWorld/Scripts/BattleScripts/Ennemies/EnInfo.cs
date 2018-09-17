@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnInfo : MonoBehaviour {
    public int health;
    public int defense;
- float deathTimer;
-    public float timerIncrease;
+   float deathTimer;
     public bool damaged;
     EnAnimate Animate;
 
@@ -23,8 +22,5 @@ public class EnInfo : MonoBehaviour {
         }
 	}
 
-    public void targetDead()
-    {
-        Destroy(gameObject);
-    }
+
 }
