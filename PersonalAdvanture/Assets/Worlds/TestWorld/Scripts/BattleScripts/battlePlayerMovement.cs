@@ -61,6 +61,7 @@ public class battlePlayerMovement : MonoBehaviour {
 
         if (controller.isGrounded)
         {
+            floatJumpOn = true;
             timer = 0;
             floatJump = 0;
             if (Input.GetButtonDown("Jump"))
@@ -75,7 +76,7 @@ public class battlePlayerMovement : MonoBehaviour {
             if (Input.GetButtonDown("Jump") && floatJump == 1 && floatJumpOn)
             {
                 floatJump = 2;
-
+                floatJumpOn = false;
             }
 
         }

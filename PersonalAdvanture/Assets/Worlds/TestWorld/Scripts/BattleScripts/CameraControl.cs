@@ -29,32 +29,6 @@ public class CameraControl : MonoBehaviour {
         player = GameObject.Find("BattlePlayer");
     }
 
-    public void followPlayer() // follow player during positiong phase
-    { //player z - -11.88
-        //camera z - 17
-        Vector3 cameraPos = mainCamera.transform.position;
-        cameraPos.z = player.transform.position.z - 4f;
-        cameraPos.x = -6.44f;
-        cameraPos.y = 1.64f;
-        camScript.cameraMoveTo(cameraPos);
-    }
-
-    public void followPlayer2() // follow player during punch phase
-    { //player z - -11.88
-        //camera z - 17
-        Vector3 cameraPos = mainCamera.transform.position;
-        cameraPos.z = player.transform.position.z - 2.5f;
-        cameraPos.y = 1.12f;
-        cameraPos.x = player.transform.position.x;
-        camScript.cameraMoveTo(cameraPos);
-    }
-    public void followPlayer3() // follow player during return phase
-    { //player z - -11.88
-        //camera z - 17
-        Vector3 cameraPos = mainCamera.transform.position;
-        cameraPos.z = player.transform.position.z - 4f;
-        cameraPos.x = player.transform.position.x;
-        cameraPos.y = 1.64f;
-        camScript.cameraMoveTo(cameraPos);
-    }
+   
+   
 }

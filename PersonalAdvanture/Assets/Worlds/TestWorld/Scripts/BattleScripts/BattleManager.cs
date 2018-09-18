@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
 
+    public float rotate1;
+    public float rotate2;
 
     public static BattleManager instance;
 
     GameObject player;
     GameObject bPlayer;
-   public CharacterController controller;
+    public CharacterController controller;
     battlePlayerMovement moveScript;
 
     public int stages;   //1- choose block, 2- select action from panel, 3- Proform action
     public int attackChoice; // 1- slingshot, 2- item, 3- runaway, 4- punch
     public bool freezeEnnemies; // freezes ennemies when player attacks
-    public Camera mainCamera;
-    battleCamera camScript;
     public float delayTimer;
 
     //obstical
-   public  GameObject transBound;
+    public GameObject transBound;
 
 
     //enemies and obsticals
@@ -30,7 +30,7 @@ public class BattleManager : MonoBehaviour {
     //attack scripts
     punchAttack punchScript;
     slingAttack slingScript;
-   public BaseItem itemScript;
+    public BaseItem itemScript;
 
     // Use this for initialization
 
@@ -53,10 +53,9 @@ public class BattleManager : MonoBehaviour {
         #endregion
 
     }
-    void Start () {
+    void Start() {
         bPlayer = GameObject.Find("BattlePlayer");
         moveScript = bPlayer.GetComponent<battlePlayerMovement>();
-        camScript = mainCamera.GetComponent<battleCamera>();
         stages = 1;
         delayTimer = 10;
         punchScript = bPlayer.GetComponent<punchAttack>();
@@ -65,30 +64,30 @@ public class BattleManager : MonoBehaviour {
         obsticals = GameObject.FindGameObjectsWithTag("Obsticals");
         freezeEnnemies = false;
         Inventory.instance.UpdateUI();
-     
-   
+
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (stages == 1)
         {
-       
-            camScript.cameraMoveTo(new Vector3(-6.2f, 1.64f, -16.55f));
+            battleCamera.instance.cameraMoveTo(new Vector3(-6.2f, 1.64f, -16.15f));
         }
-        if(stages == 2)
+        if (stages == 2)
         {
             delayTimer = 0;
-           
+
         }
         delayTimer += 1 * Time.deltaTime;
-          
+
         if (stages == 3)
-        {     
+        {
             if (attackChoice == 4 && delayTimer >= 20 * Time.deltaTime)
             {
-             stages += punchScript.basicAttack();
+                stages += punchScript.basicAttack();
             }
             if (attackChoice == 1 && delayTimer >= 20 * Time.deltaTime)
             {
@@ -104,18 +103,18 @@ public class BattleManager : MonoBehaviour {
 
                 transBound.transform.position = new Vector3(-9.41f, 10.47f, -10.55f);
             }
-               
+
 
         }
-        if(stages == 4 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
+        if (stages == 4 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
         {
-            foreach(GameObject en in enemies)
+            foreach (GameObject en in enemies)
             {
-                if(en != null)
+                if (en != null)
                 {
-                    if(en.GetComponent<EnInfo>().health < 1)
+                    if (en.GetComponent<EnInfo>().health < 1)
                     {
-                        Destroy(en); 
+                        Destroy(en);
                     }
                 }
             }
@@ -124,21 +123,30 @@ public class BattleManager : MonoBehaviour {
         }
         if (stages == 5 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
         {
-            controller.Move(new Vector3( -1f*Time.deltaTime, 0, 0));
-            CameraControl.instance.followPlayer();
-            if (bPlayer.transform.position.x <= -10f)
+            controller.Move(new Vector3(-4f * Time.deltaTime, 0, 0));
+            battleCamera.instance.followPlayer4();
+            if (bPlayer.transform.position.x <= -11.5f)
             {
                 stages = 6;
                 transBound.transform.position = new Vector3(-9.41f, 0.47f, -10.55f);
                 delayTimer = 0;
-              
+
             }
         }
-        if (stages == 6 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
+        if (stages == 6 && delayTimer >= 20 * Time.deltaTime)
         {
-            moveScript.freeMovement();
+            battleCamera.instance.followPlayer5();
+            // killing all destroyed ennemies
+
+            // controller.transform.rotation = (new Quaternion(rotate1, 0, 0, rotate2));
+            //  bPlayer.transform.rotation 
+            battleCamera.instance.playerMove();
+             moveScript.freeMovement();
         }
     }
 
-   
 }
+
+
+//098, -3.814, -0.258
+

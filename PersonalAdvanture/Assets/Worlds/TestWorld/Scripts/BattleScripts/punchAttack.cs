@@ -29,7 +29,6 @@ public class punchAttack : MonoBehaviour {
     public Sprite passedNode;
     public Sprite activeNode;
 
-    battleAnimate animateScript;
 
 
     // Use this for initialization
@@ -54,13 +53,13 @@ public class punchAttack : MonoBehaviour {
         camScript = mainCamera.GetComponent<battleCamera>();
 
         setUpNodes();
-        animateScript = player.GetComponent<battleAnimate>();
+  
     }
 	
 	// Update is called once per frame
 	void Update () {
         timer += 1 * Time.deltaTime;
-    
+        battleCamera.instance.playerActions();
 	}
 
 
@@ -69,9 +68,9 @@ public class punchAttack : MonoBehaviour {
         if (attackStage == 1)
         {
             setUpNodes();
-            animateScript.select = 0;
+           
             findPosition();
-            followPlayer();
+            battleCamera.instance.followPlayer();
             timer = 0;
 
         }
@@ -79,35 +78,35 @@ public class punchAttack : MonoBehaviour {
         if (attackStage == 2)
         {
 
-            animateScript.select = 1;
+        
 
-            followPlayer2();
+            battleCamera.instance.followPlayer2();
             miniGame();
         }
         if (attackStage == 3)
         {
 
-            animateScript.select = 2;
-            if (animateScript.finishedPunch)
-            {
-                attackStage = 4;
-            }
-            followPlayer2();
+            attackStage = 4;
+            //   if (animateScript.finishedPunch)
+            //  {
+            //  attackStage = 4;
+            // }
+            battleCamera.instance.followPlayer2();
       
         }
 
         if (attackStage == 4)
         {
-            animateScript.select = 3;
-            followPlayer2();
+        
+            battleCamera.instance.followPlayer2();
          
             basicPunch();
         }
        
         if (attackStage == 5)
         {
-            animateScript.select = 0;
-            followPlayer3();
+           
+            battleCamera.instance.followPlayer3();
             returnStart();
       
         }
@@ -248,12 +247,6 @@ public class punchAttack : MonoBehaviour {
             }
         }
      
-     
-     
-      
-       
-
-
     }
     public void basicPunch()
     {
@@ -305,33 +298,5 @@ public class punchAttack : MonoBehaviour {
 
     }
 
-    ///CAMERA METHODS
-    public void followPlayer() // follow player during positiong phase
-    { //player z - -11.88
-        //camera z - 17
-        Vector3 cameraPos = mainCamera.transform.position;
-        cameraPos.z = player.transform.position.z - 4f;
-        cameraPos.x = -6.44f;
-        cameraPos.y = 1.64f;
-     camScript.cameraMoveTo(cameraPos);
-    }
-
-    public void followPlayer2() // follow player during punch phase
-    { //player z - -11.88
-        //camera z - 17
-        Vector3 cameraPos = mainCamera.transform.position;
-        cameraPos.z = player.transform.position.z - 2.5f;
-        cameraPos.y = 1.12f;
-        cameraPos.x = player.transform.position.x;
-        camScript.cameraMoveTo(cameraPos);
-    }
-    public void followPlayer3() // follow player during return phase
-    { //player z - -11.88
-        //camera z - 17
-        Vector3 cameraPos = mainCamera.transform.position;
-        cameraPos.z = player.transform.position.z - 4f;
-        cameraPos.x = player.transform.position.x;
-        cameraPos.y = 1.64f;
-        camScript.cameraMoveTo(cameraPos);
-    }
+   
 }
