@@ -13,6 +13,22 @@ public class battlePlayerMovement : MonoBehaviour {
     float timer;
     SpriteRenderer rend;
 
+    public static battlePlayerMovement instance;
+
+    #region SingleTon
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("Warning multiple ennemyeMangers found");
+            return;
+        }
+        instance = this;
+
+
+    }
+    #endregion
+
     //  controling bools
     public bool floatJumpOn;
 

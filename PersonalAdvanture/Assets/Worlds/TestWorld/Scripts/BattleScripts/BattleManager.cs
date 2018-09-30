@@ -121,32 +121,50 @@ public class BattleManager : MonoBehaviour {
             stages = 5;
             delayTimer = 0;
         }
-        if (stages == 5 && delayTimer >= 20 * Time.deltaTime) // killing all destroyed ennemies
+        if (stages == 5 && delayTimer >= 20 * Time.deltaTime) 
         {
             controller.Move(new Vector3(-4f * Time.deltaTime, 0, 0));
-            battleCamera.instance.followPlayer4();
-            if (bPlayer.transform.position.x <= -11.5f)
+            battleCamera.instance.followPlayer6();
+            battleCamera.instance.playerMove(); // makes player face camera
+            if (bPlayer.transform.position.x <= -12.9f)
             {
+                //reposition and setting ennemies battle info
+                EnnemyManger.instance.selectAttack();
                 stages = 6;
                 transBound.transform.position = new Vector3(-9.41f, 0.47f, -10.55f);
                 delayTimer = 0;
 
             }
         }
+        //setting up enemies for attack
         if (stages == 6 && delayTimer >= 20 * Time.deltaTime)
-        {
-            battleCamera.instance.followPlayer5();
-            // killing all destroyed ennemies
+        {  
+             battleCamera.instance.playerMove(); // makes player face camera
+            battleCamera.instance.followPlayer4();
+    
+            if (EnnemyManger.instance.reposition())
+            {
+                stages = 7;
+                delayTimer = 0;
+            }
+        }
 
-            // controller.transform.rotation = (new Quaternion(rotate1, 0, 0, rotate2));
-            //  bPlayer.transform.rotation 
-            battleCamera.instance.playerMove();
-             moveScript.freeMovement();
+        if (stages == 7 && delayTimer >= 20 * Time.deltaTime)
+        {
+            Debug.Log("stage7");
+            battleCamera.instance.followPlayer5();  // make camera move with  player   
+            battleCamera.instance.playerMove(); // makes player face camera
+            moveScript.freeMovement();
+            if (EnnemyManger.instance.doAttack())
+            {
+               // stages = 8;
+               // delayTimer = 0;
+            }
         }
     }
 
 }
 
 
-//098, -3.814, -0.258
+
 

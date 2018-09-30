@@ -122,4 +122,14 @@ public class battleCamera : MonoBehaviour {
         cameraPos.y = 1.60f;
         cameraMoveTo(cameraPos);
     }
+
+    public void followPlayer6() //close up, of player entering battle phase
+    { //player z - -11.88
+        //camera z - 17
+        Vector3 cameraPos = mainCamera.transform.position;
+        cameraPos.z = player.transform.position.z - 1.8f;
+        cameraPos.y = 1.03f;
+        cameraPos.x = player.transform.position.x;
+        cameraMoveTo(cameraPos);
+    }
 }
