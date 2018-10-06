@@ -123,6 +123,11 @@ public class BattleManager : MonoBehaviour {
         }
         if (stages == 5 && delayTimer >= 20 * Time.deltaTime) 
         {
+            foreach(GameObject eni in enemies)
+            {
+                if(eni != null)
+                eni.GetComponent<EnInfo>().damaged = false;
+            }
             controller.Move(new Vector3(-4f * Time.deltaTime, 0, 0));
             battleCamera.instance.followPlayer6();
             battleCamera.instance.playerMove(); // makes player face camera
@@ -151,15 +156,20 @@ public class BattleManager : MonoBehaviour {
 
         if (stages == 7 && delayTimer >= 20 * Time.deltaTime)
         {
-            Debug.Log("stage7");
+          
             battleCamera.instance.followPlayer5();  // make camera move with  player   
             battleCamera.instance.playerMove(); // makes player face camera
             moveScript.freeMovement();
             if (EnnemyManger.instance.doAttack())
             {
-               // stages = 8;
-               // delayTimer = 0;
+                stages = 8;
+                delayTimer = 0;
             }
+        }
+        if (stages == 8 && delayTimer >= 20 * Time.deltaTime)
+        {
+
+           
         }
     }
 

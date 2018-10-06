@@ -7,20 +7,20 @@ public class EnInfo : MonoBehaviour {
    public int defense;
    float deathTimer;
     public bool damaged;
-    EnAnimate Animate;
+    Animator animator;
 
 	void Start () {
         deathTimer = 0;
-        Animate = GetComponent<EnAnimate>();
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (damaged)
-        {
-            Animate.damaged = damaged;
-        }
-	}
+        if (damaged)       
+            animator.SetBool("Damaged", true);       
+        else
+            animator.SetBool("Damaged", false);
+    }
 
 
 }

@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 65729285353926274}
   - component: {fileID: 114574848526204066}
   - component: {fileID: 114643839660441172}
+  - component: {fileID: 95545796794856734}
   m_Layer: 0
   m_Name: Boophy
   m_TagString: Enemies
@@ -58,6 +59,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.31216136, y: 0.65976286, z: 0.27142102}
   m_Center: {x: -0.04640783, y: -0.095119245, z: -0.008443472}
+--- !u!95 &95545796794856734
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971894163051036}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9356858fe0e832844a0a33d3fe1274a7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114286820161807566
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1183,6 +1183,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &290645542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1971894163051036, guid: 071ba038e4000e9439dc58d5ad66f996,
+    type: 2}
+  m_PrefabInternal: {fileID: 1820228611}
+--- !u!95 &290645551
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290645542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9356858fe0e832844a0a33d3fe1274a7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &350251838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,7 +1482,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1834039486}
   m_Direction: 2
   m_Value: 0.99993575
-  m_Size: 0.20015767
+  m_Size: 0.20015766
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2443,6 +2466,7 @@ GameObject:
   - component: {fileID: 666896899}
   - component: {fileID: 666896898}
   - component: {fileID: 666896900}
+  - component: {fileID: 666896901}
   m_Layer: 0
   m_Name: BattlePlayer
   m_TagString: Untagged
@@ -2713,6 +2737,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &666896901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666896891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b6782b559183f48ab2fbe23836b5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 10
+  Stamina: 10
 --- !u!1 &684179109
 GameObject:
   m_ObjectHideFlags: 0
@@ -4819,7 +4856,8 @@ Prefab:
       propertyPath: paths.Array.data[5]
       value: 
       objectReference: {fileID: 1984600326}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114286820161807566, guid: 071ba038e4000e9439dc58d5ad66f996, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 071ba038e4000e9439dc58d5ad66f996, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1188244383

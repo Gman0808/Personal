@@ -66,7 +66,7 @@ public class EnBasicAttack : MonoBehaviour {
     }
     public void returnPos()
     {
-
+        GetComponent<BasicEnnemy1>().returnPos();
     }
 
   

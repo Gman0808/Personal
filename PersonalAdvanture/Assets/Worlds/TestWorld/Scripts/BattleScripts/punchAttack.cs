@@ -279,23 +279,26 @@ public class punchAttack : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.tag == "Obsticals")
+        if(BattleManager.instance.stages < 5)
         {
-            accel = 0;
-        }
-        if(other.gameObject.tag == "Enemies")
-        {
-            EnInfo info = other.gameObject.GetComponent<EnInfo>();
-            other.gameObject.GetComponent<EnInfo>().health -= (attackValue - info.defense);
-            other.gameObject.GetComponent<EnInfo>().damaged = true;
-            Debug.Log("Hit");
-            if(info.defense > 0)
+            if (other.gameObject.tag == "Obsticals")
             {
                 accel = 0;
             }
+            if (other.gameObject.tag == "Enemies")
+            {
+                EnInfo info = other.gameObject.GetComponent<EnInfo>();
+                other.gameObject.GetComponent<EnInfo>().health -= (attackValue - info.defense);
+                other.gameObject.GetComponent<EnInfo>().damaged = true;
+                Debug.Log("Hit");
+                if (info.defense > 0)
+                {
+                    accel = 0;
+                }
+            }
         }
 
+     
     }
 
    
