@@ -7,11 +7,13 @@ public class battlePlayerMovement : MonoBehaviour {
     public float jumpForce;
     public CharacterController controller;
     public Vector3 directionMove;
-    private Vector3 prevMove;
+
     public float gravScale;
     public int floatJump;
     float timer;
     SpriteRenderer rend;
+
+    public Vector3 startPos;
 
     public static battlePlayerMovement instance;
 
@@ -36,7 +38,7 @@ public class battlePlayerMovement : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        startPos = transform.position;
         controller = GetComponent<CharacterController>();
         rend = GetComponent<SpriteRenderer>();
         floatJump = 0;
@@ -110,8 +112,16 @@ public class battlePlayerMovement : MonoBehaviour {
         }
        
         controller.Move(directionMove * Time.deltaTime);
-        prevMove = directionMove; 
 
+
+    }
+
+    public void fall()
+    {
+        if (!controller.isGrounded)       
+            directionMove.y = directionMove.y + (Physics.gravity.y * gravScale * Time.deltaTime);
+             
+        controller.Move(new Vector3(0, directionMove.y, 0) * Time.deltaTime);
     }
 }
 

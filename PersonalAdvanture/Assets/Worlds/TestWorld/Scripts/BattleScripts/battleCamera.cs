@@ -94,7 +94,7 @@ public class battleCamera : MonoBehaviour {
         cameraPos.x = player.transform.position.x;
        cameraMoveTo(cameraPos);
     }
-    public void followPlayer3() // follow player during return phase
+    public void followPlayer3() // follow player during return attack phase
     { //player z - -11.88
         //camera z - 17
         Vector3 cameraPos = mainCamera.transform.position;
@@ -103,7 +103,7 @@ public class battleCamera : MonoBehaviour {
         cameraPos.y = 1.64f;
         cameraMoveTo(cameraPos);
     }
-    public void followPlayer4() // follow player during return phase
+    public void followPlayer4() 
     { //player z - -11.88
         //camera z - 17
         Vector3 cameraPos = mainCamera.transform.position;
@@ -113,7 +113,7 @@ public class battleCamera : MonoBehaviour {
         cameraMoveTo(cameraPos);
     }
 
-    public void followPlayer5() // follow player during return phase
+    public void followPlayer5() 
     { //player z - -11.88
         //camera z - 17
         Vector3 cameraPos = mainCamera.transform.position;

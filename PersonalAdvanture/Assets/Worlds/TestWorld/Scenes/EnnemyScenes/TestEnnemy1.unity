@@ -1481,8 +1481,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1834039487}
   m_HandleRect: {fileID: 1834039486}
   m_Direction: 2
-  m_Value: 0.99993575
-  m_Size: 0.20015766
+  m_Value: 0.9999356
+  m_Size: 0.20015764
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2567,6 +2567,7 @@ MonoBehaviour:
   directionMove: {x: 0, y: 0, z: 0}
   gravScale: 2.5
   floatJump: 0
+  startPos: {x: 0, y: 0, z: 0}
   floatJumpOn: 1
   faceRight: 0
 --- !u!114 &666896896
@@ -2594,6 +2595,7 @@ MonoBehaviour:
   failedNode: {fileID: 21300000, guid: 0fd4b37cdd276db4fb7963a7ce5dc7f5, type: 3}
   passedNode: {fileID: 21300000, guid: fff987bb5dfc1d94b8a507858da33fd2, type: 3}
   activeNode: {fileID: 21300000, guid: efa5823966e3b0e4ea69bb0a4adce093, type: 3}
+  restNode: {fileID: 21300000, guid: 45bb3b2c8b2a5d54383f0d3b796f7fa9, type: 3}
 --- !u!114 &666896897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4383,6 +4385,15 @@ Prefab:
         type: 2}
       propertyPath: speed2
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 65729285353926274, guid: 071ba038e4000e9439dc58d5ad66f996,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 071ba038e4000e9439dc58d5ad66f996, type: 2}
@@ -7997,6 +8008,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0c7f18e9874644ab13db855fc1bdab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackMode: 0
+  selectMode: 0
   delay: 0.25
   actionPanels: []
   chosenAction: 0
@@ -8036,7 +8049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a10fd42bd279504182af28187da65bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypes: 1
+  attackTypes: 2
   ennemies: []
 --- !u!1001 &2134974428
 Prefab:

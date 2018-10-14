@@ -10,7 +10,6 @@ public class EnnemyManger : MonoBehaviour {
     public GameObject[] ennemies;
 
 
-
     #region SingleTon
     private void Awake()
     {     
@@ -30,12 +29,11 @@ public class EnnemyManger : MonoBehaviour {
         ennemies = GameObject.FindGameObjectsWithTag("Enemies");
 	}
 	
-
-
     //choosing attack
      public void selectAttack()
      {
-        selected = Random.Range(1, attackTypes);
+      selected = Random.Range(1, attackTypes+1);
+
         foreach (GameObject en in ennemies)
         {
             if(en!= null)
@@ -63,6 +61,24 @@ public class EnnemyManger : MonoBehaviour {
         return checkFinish;
     }
 
+
+    public bool retreat()
+    {
+        bool checkFinish = true;
+        bool current = true;
+        foreach (GameObject en in ennemies)
+        {
+            if (en != null)
+            {
+                current = en.GetComponent<EnBasicAttack>().returnPos();
+                if (!current)
+                    checkFinish = false;
+            }
+
+        }
+        return checkFinish;
+    }
+
     //preforming attack
     public bool doAttack()
     {
@@ -75,7 +91,10 @@ public class EnnemyManger : MonoBehaviour {
             {
                 if (selected == 1)
                   current =  en.GetComponent<EnBasicAttack>().attack1();
+                if (selected == 2)
+                    current = en.GetComponent<EnBasicAttack>().attack2();
             }
+
             if (!current)
                 checkFinish = false;
         }

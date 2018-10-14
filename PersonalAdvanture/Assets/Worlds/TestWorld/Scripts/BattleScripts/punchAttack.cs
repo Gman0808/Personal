@@ -28,7 +28,7 @@ public class punchAttack : MonoBehaviour {
     public Sprite failedNode;
     public Sprite passedNode;
     public Sprite activeNode;
-
+    public Sprite restNode;
 
 
     // Use this for initialization
@@ -55,6 +55,19 @@ public class punchAttack : MonoBehaviour {
         setUpNodes();
   
     }
+
+    public void reset()
+    {
+        positionSpeed = 3;
+        timer = 0;
+        attackStage = 1;
+        setUpNodes();
+
+        foreach (GameObject node in PunchNodes)
+        {
+            node.GetComponent<Image>().sprite = restNode;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -68,7 +81,6 @@ public class punchAttack : MonoBehaviour {
         if (attackStage == 1)
         {
             setUpNodes();
-           
             findPosition();
             battleCamera.instance.followPlayer();
             timer = 0;
@@ -77,9 +89,6 @@ public class punchAttack : MonoBehaviour {
            
         if (attackStage == 2)
         {
-
-        
-
             battleCamera.instance.followPlayer2();
             miniGame();
         }

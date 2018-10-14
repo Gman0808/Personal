@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour {
     public CharacterController controller;
     battlePlayerMovement moveScript;
 
-    public int stages;   //1- choose block, 2- select action from panel, 3- Proform action
+    public int stages;   //diffrent phases of battle
     public int attackChoice; // 1- slingshot, 2- item, 3- runaway, 4- punch
     public bool freezeEnnemies; // freezes ennemies when player attacks
     public float delayTimer;
@@ -74,12 +74,18 @@ public class BattleManager : MonoBehaviour {
 
         if (stages == 1)
         {
+            freezeEnnemies = false;
+            bPlayer.transform.position = moveScript.startPos;
             battleCamera.instance.cameraMoveTo(new Vector3(-6.2f, 1.64f, -16.15f));
+            SelectAttack.instance.selectActions();
         }
         if (stages == 2)
         {
             delayTimer = 0;
-
+            SelectAttack.instance.selectActions();
+            //resetting attacks
+            punchScript.reset();
+            slingScript.reset();
         }
         delayTimer += 1 * Time.deltaTime;
 
@@ -168,8 +174,30 @@ public class BattleManager : MonoBehaviour {
         }
         if (stages == 8 && delayTimer >= 20 * Time.deltaTime)
         {
+            battleCamera.instance.followPlayer5();
+            moveScript.fall();
+            if (EnnemyManger.instance.retreat())
+            {             
+                stages = 9;
+                delayTimer = 0;
+            }
+        }
+        if (stages == 9 && delayTimer >= 20 * Time.deltaTime)
+        {
+            transBound.transform.position = new Vector3(-9.41f, 10.47f, -10.55f);
+            battleCamera.instance.followPlayer5();
+            battleCamera.instance.playerMove(); // makes player face camera
 
-           
+            Vector3 distance = (bPlayer.transform.position - moveScript.startPos).normalized;
+            controller.Move((distance * -4f) * Time.deltaTime);
+            if (bPlayer.transform.position.x >= moveScript.startPos.x - 0.1f)
+            {          
+                stages = 1;
+                transBound.transform.position = new Vector3(-9.41f, 0.47f, -10.55f);
+                delayTimer = 0;
+        
+
+            }
         }
     }
 

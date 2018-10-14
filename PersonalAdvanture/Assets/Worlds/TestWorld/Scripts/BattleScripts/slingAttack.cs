@@ -61,6 +61,11 @@ public class slingAttack : MonoBehaviour {
         lineRend.SetPosition(1, transform.position);
     }
 
+    public void reset()
+    {
+        attackStage = 1;
+    }
+
     //method to render the arc itself
     void renderArc()
     {

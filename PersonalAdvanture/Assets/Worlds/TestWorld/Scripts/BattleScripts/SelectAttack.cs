@@ -8,8 +8,8 @@ public class SelectAttack : MonoBehaviour {
 
     BattleManager bScript;
     RotateBlocks rScript;
-    float attackMode;//1 slingshot, 2 Item, 3 Runaway, 4 Punch
-    float selectMode; //1 choosing block, 2- choosing from pannel, 3- proforming action
+  public  float attackMode;//1 slingshot, 2 Item, 3 Runaway, 4 Punch
+  public  float selectMode; //1 choosing block, 2- choosing from pannel, 3- proforming action
     float delayTimer;
     public float delay;
     public GameObject[] actionPanels; // 0 - runaway, 1- item, 2- slingshot, 3- punch
@@ -45,6 +45,11 @@ public class SelectAttack : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+       
+    }
+
+    public void selectActions()
+    {
         delayTimer += 1 * Time.deltaTime;
         if (delayTimer > delay + 1)
             delayTimer = delay + 1;
@@ -60,13 +65,7 @@ public class SelectAttack : MonoBehaviour {
         //this will be removed soon, for now we skip the selection of attacks from the panels
         if (Input.GetAxis("Interact") != 0 && delayTimer >= delay && selectMode == 2)
         {
-            delayTimer = 0;
-            selectMode = 3;
-            bScript.stages = 3; //now proforming action
-            disablePannels();
-            bScript.delayTimer = 0;
-            //subject to change once variations in options are added (diffrent punch choices or items)
-            bScript.attackChoice = chosenAction;
+            selectOption();
         }
         if (Input.GetAxis("Quit") != 0 && delayTimer >= delay && selectMode == 2)
         {
@@ -116,7 +115,7 @@ public class SelectAttack : MonoBehaviour {
     {
 
         delayTimer = 0;
-        selectMode = 3;
+        selectMode = 1;
         bScript.stages = 3; //now proforming action
         disablePannels();
         bScript.delayTimer = 0;

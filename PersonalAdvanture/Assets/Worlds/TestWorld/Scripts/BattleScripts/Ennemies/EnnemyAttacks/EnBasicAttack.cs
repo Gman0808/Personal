@@ -43,7 +43,6 @@ public class EnBasicAttack : MonoBehaviour {
     //z -7.3 - -13.3
     public virtual void prepare()
     {
-        moveScript.attackOn = true;
         Vector3 startPos = new Vector3(-8, 0.25f, Random.Range(-13.3f, -7.3f));
 
         transform.position = startPos;
@@ -59,14 +58,14 @@ public class EnBasicAttack : MonoBehaviour {
         }
         else
         {
-            transform.position += new Vector3(-1.5f, 0, 0) * Time.deltaTime;
+            transform.position += new Vector3(-3.5f, 0, 0) * Time.deltaTime;
             return false;
         }
          
     }
-    public void returnPos()
+    public bool returnPos()
     {
-        GetComponent<BasicEnnemy1>().returnPos();
+      return  GetComponent<BasicEnnemy1>().returnPos(2.5f);
     }
 
   
